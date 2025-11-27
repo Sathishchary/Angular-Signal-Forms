@@ -1,8 +1,8 @@
 <div class="container">
   <h1>User Registration Form</h1>
-  <p class="subtitle">Angular 21 Signal Forms Demo</p>
+  <p class="subtitle">Angular 21 Signal Forms</p>
 
-  <form  (submit)="onSubmit()" class="user-form">
+  <form (submit)="onSubmit()" class="user-form">
 
     <!-- Personal Information Section -->
     <div class="form-section">
@@ -12,37 +12,31 @@
         <label for="username">Username *</label>
         <input id="username" type="text" [field]="userSignalForm.userName" placeholder="Enter username">
         @if (userSignalForm.userName().touched() && userSignalForm.userName().invalid()) {
-        <ul class="error-list">
           @for (error of userSignalForm.userName().errors(); track error) {
-          <li style="color:red">{{ error.message }}</li>
+            <span class="error-message">{{ error.message }}</span>
           }
-        </ul>
         }
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label for="name">First Name *</label>
-          <input id="name" type="text" [field]="userSignalForm.firstName" placeholder="Enter first name" >
-            @if (userSignalForm.firstName().touched() && userSignalForm.firstName().invalid()) {
-            <ul class="error-list">
-              @for (error of userSignalForm.firstName().errors(); track error) {
-               <li style="color:red">{{ error.message }}</li>
-              }
-            </ul>
+          <input id="name" type="text" [field]="userSignalForm.firstName" placeholder="Enter first name">
+          @if (userSignalForm.firstName().touched() && userSignalForm.firstName().invalid()) {
+            @for (error of userSignalForm.firstName().errors(); track error) {
+              <span class="error-message">{{ error.message }}</span>
             }
+          }
         </div>
 
         <div class="form-group">
           <label for="lastname">Last Name *</label>
           <input id="lastname" type="text" [field]="userSignalForm.lastName" placeholder="Enter last name">
-            @if (userSignalForm.lastName().touched() && userSignalForm.lastName().invalid()) {
-            <ul class="error-list">
-              @for (error of userSignalForm.lastName().errors(); track error) {
-               <li style="color:red">{{ error.message }}</li>
-              }
-            </ul>
+          @if (userSignalForm.lastName().touched() && userSignalForm.lastName().invalid()) {
+            @for (error of userSignalForm.lastName().errors(); track error) {
+              <span class="error-message">{{ error.message }}</span>
             }
+          }
         </div>
       </div>
 
@@ -50,93 +44,80 @@
         <div class="form-group">
           <label for="email">Email *</label>
           <input id="email" type="email" [field]="userSignalForm.email" placeholder="Enter email address">
-            @if (userSignalForm.email().touched() && userSignalForm.email().invalid()) {
-            <ul class="error-list">
-              @for (error of userSignalForm.email().errors(); track error) {
-               <li style="color:red">{{ error.message }}</li>
-              }
-            </ul>
+          @if (userSignalForm.email().touched() && userSignalForm.email().invalid()) {
+            @for (error of userSignalForm.email().errors(); track error) {
+              <span class="error-message">{{ error.message }}</span>
             }
+          }
         </div>
 
         <div class="form-group">
           <label for="mobileNumber">Mobile Number *</label>
           <input id="mobileNumber" type="tel" [field]="userSignalForm.mobileNumber" placeholder="Enter mobile number">
           @if (userSignalForm.mobileNumber().touched() && userSignalForm.mobileNumber().invalid()) {
-          <ul class="error-list">
             @for (error of userSignalForm.mobileNumber().errors(); track error) {
-             <li style="color:red">{{ error.message }}</li>
+              <span class="error-message">{{ error.message }}</span>
             }
-          </ul>
           }
         </div>
       </div>
     </div>
 
-    Address Section
+    <!-- Address Section -->
     <div class="form-section">
       <h2>Address Information</h2>
 
       <div class="form-group">
         <label for="street">Street *</label>
-        <input id="street" type="text" [field]="userSignalForm.address.street" placeholder="Enter street address"
-          >
-            @if (userSignalForm.address.street().touched() && userSignalForm.address.street().invalid()) {
-            <ul class="error-list">
-              @for (error of userSignalForm.address.street().errors(); track error) {
-               <li style="color:red">{{ error.message }}</li>
-              }
-            </ul>
-            }
+        <input id="street" type="text" [field]="userSignalForm.address.street" placeholder="Enter street address">
+        @if (userSignalForm.address.street().touched() && userSignalForm.address.street().invalid()) {
+          @for (error of userSignalForm.address.street().errors(); track error) {
+            <span class="error-message">{{ error.message }}</span>
+          }
+        }
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label for="mandal">Mandal *</label>
-          <input id="mandal" type="text" [field]="userSignalForm.address.mandal" placeholder="Enter mandal"
-           >
-            @if (userSignalForm.address.mandal().touched() && userSignalForm.address.mandal().invalid()) {
-            <ul class="error-list">
-              @for (error of userSignalForm.address.mandal().errors(); track error) {
-               <li style="color:red">{{ error.message }}</li>
-              }
-            </ul>
+          <input id="mandal" type="text" [field]="userSignalForm.address.mandal" placeholder="Enter mandal">
+          @if (userSignalForm.address.mandal().touched() && userSignalForm.address.mandal().invalid()) {
+            @for (error of userSignalForm.address.mandal().errors(); track error) {
+              <span class="error-message">{{ error.message }}</span>
             }
+          }
         </div>
 
         <div class="form-group">
           <label for="state">State *</label>
-          <input id="state" type="text" [field]="userSignalForm.address.state" placeholder="Enter state"
-          >
-            @if (userSignalForm.address.state().touched() && userSignalForm.address.state().invalid()) {
-            <ul class="error-list">
-              @for (error of userSignalForm.address.state().errors(); track error) {
-               <li style="color:red">{{ error.message }}</li>
-              }
-            </ul>
+          <input id="state" type="text" [field]="userSignalForm.address.state" placeholder="Enter state">
+          @if (userSignalForm.address.state().touched() && userSignalForm.address.state().invalid()) {
+            @for (error of userSignalForm.address.state().errors(); track error) {
+              <span class="error-message">{{ error.message }}</span>
             }
+          }
         </div>
       </div>
 
       <div class="form-group">
         <label for="country">Country *</label>
-        <input id="country" type="text" [field]="userSignalForm.address.country" placeholder="Enter country"
-         >
-          @if (userSignalForm.address.country().touched() && userSignalForm.address.country().invalid()) {
-          <ul class="error-list">
-            @for (error of userSignalForm.address.country().errors(); track error) {
-             <li style="color:red">{{ error.message }}</li>
-            }
-          </ul>
+        <input id="country" type="text" [field]="userSignalForm.address.country" placeholder="Enter country">
+        @if (userSignalForm.address.country().touched() && userSignalForm.address.country().invalid()) {
+          @for (error of userSignalForm.address.country().errors(); track error) {
+            <span class="error-message">{{ error.message }}</span>
           }
+        }
       </div>
     </div>
 
     <!-- Form Actions -->
     <div class="form-actions">
-        <button type="button" (click)="loadBasicData()" class="btn-secondary">
-          Set BasicInfo
-        </button>
+      <button type="button" (click)="updateEmail()" class="btn-secondary">
+        Update Email
+      </button>
+      <button type="button" (click)="setBasicUserData()" class="btn-secondary">
+        Set BasicInfo
+      </button>
       <button type="button" (click)="resetForm()" class="btn-secondary">
         Reset
       </button>

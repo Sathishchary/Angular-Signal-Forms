@@ -1,13 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
-import { email, Field, form, pattern, required } from '@angular/forms/signals';
+import { email, Field, form, maxLength, minLength, pattern, required } from '@angular/forms/signals';
 import { UserForm } from './userForm';
 
-export function onlyNumbers(value: string): ValidationErrors | null {
-  const regex = /^[0-9]*$/;
-  return regex.test(value) ? null : { onlyNumbers: 'Only digits are allowed' };
-}
 
 @Component({
   selector: 'app-root',
@@ -38,8 +33,21 @@ export class App {
   userSignalForm = form(this.userFormModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
     email(schemaPath.email, { message: 'Enter a valid email address' });
-    pattern(schemaPath.mobileNumber, /^\d{10}$/, {
+    required(schemaPath.mobileNumber, {
+      message: 'mobile number should be entered after email',
+      when: ({ valueOf }) => !valueOf(schemaPath.email)
+    })
+
+    minLength(schemaPath.mobileNumber, 10, {
       message: 'Mobile number must be 10 digits'
+    });
+
+    maxLength(schemaPath.mobileNumber, 10, {
+      message: 'Mobile number must be 10 digits'
+    });
+
+    pattern(schemaPath.mobileNumber, /^\d+$/, {
+      message: 'Mobile number must contain digits only'
     });
     required(schemaPath.userName, { message: 'Username is required' });
     required(schemaPath.firstName, { message: 'First name is required' });
@@ -53,33 +61,36 @@ export class App {
 
   onSubmit() {
     const formData = this.userSignalForm();
-    //access individual field values
     console.log("User Name", this.userFormModel().userName);
     console.log("Form Data", formData);
     this.submittedData.set(formData);
-    console.log(formData)
+    console.log(formData);
 
   }
 
-  loadBasicData() {
-    const userInfor = {
-      "userName": "SathishKotha",
-      "firstName": "Sathish",
-      "lastName": "Kotha",
-      "email": "sathishcharykotha@gmail.com",
-      "mobileNumber": "8888888888",
+  setBasicUserData() {
+    const userInfo = {
+      "userName": "johnDoe123",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "johndoe@example.com",
+      "mobileNumber": "9995551234",
       "address": {
-        "street": "wetwet",
-        "mandal": "wetet",
-        "state": "wet",
-        "country": "wtt"
+        "street": "101 Sunset Boulevard",
+        "mandal": "Los Angeles County",
+        "state": "California",
+        "country": "United States"
       }
     }
-    this.userFormModel.set(userInfor);
+ 
+    this.userFormModel.set(userInfo);
   }
 
   updateEmail() {
-    // this.userFormModel.email.update('newemail@example.com', { emitEvent: true });
+    this.userFormModel.update(current => ({
+      ...current,
+      email: 'sathishkotha@gmail.com'
+    }));
   }
 
   resetForm() {
